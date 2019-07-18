@@ -11,6 +11,13 @@
 
 ##数据库交互
     flask shell
-    
+
+##添加.env文件
+    在根目录添加.env文件，内容如下
+    FLASK_APP=goalkeeper.py
+    FLASK_DEBUG=1
+    FLASK_ENV=development
+
+
 ##运行
     flask run
