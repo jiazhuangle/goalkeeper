@@ -24,7 +24,7 @@ def get_token(user_info):
         return bad_request('invalid request')
 
 
-bp.route('/user/<token>', methods=['GET'])
+@bp.route('/user/<token>', methods=['GET'])
 def get_user(token):
     user = UserData.check_token(token) if token else None
     if user is not None:
