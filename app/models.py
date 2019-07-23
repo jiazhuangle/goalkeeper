@@ -74,7 +74,7 @@ class UserData(db.Model):
             self.token_expiration = now + timedelta(seconds=expires_in)
         db.session.add(self)
 
-        return self.to_dict()
+        return self.token
 
     def to_dict(self):
         data = {
@@ -83,7 +83,6 @@ class UserData(db.Model):
             'email': self.email,
             'name': self.name,
             'title':self.title,
-            'token':self.token
 
         }
         return data

@@ -5,7 +5,7 @@ from app.api.errors import error_response as er
 
 
 def needs_json():
-    return request.accecpt_mimetypes['application/json'] >= \
+    return request.accept_mimetypes['application/json'] >= \
            request.accept_mimetypes['text/html']
 
 @bp.app_errorhandler(404)
