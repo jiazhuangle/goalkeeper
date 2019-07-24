@@ -6,7 +6,7 @@ from app import db
 from app.models import User,UserData
 
 from app.main import bp
-from app.main.forms import AddUserForm
+from app.main.forms import AddUserForm, UpdateUserForm
 
 
 @bp.before_app_request
@@ -31,10 +31,43 @@ def add_user():
     form = AddUserForm()
     if form.validate_on_submit():
         user = UserData(username= form.username.data,email= form.email.data,
-                        name = form.name.data,title=form.title.data)
+                        name = form.name.data,title=form.title.data,status=1)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('添加成功')
         return redirect(url_for('main.index'))
     return render_template('main/add_user.html',title='添加用户',form=form)
+
+
+@bp.route('/update_user', methods=['GET','POST'])
+@login_required
+def update_user():
+    uid = request.args.get("uid")
+    user = UserData.query.filter_by(id=uid).first()
+    form = UpdateUserForm()
+
+    if request.method == 'GET':
+        if request.args.get("func") == 'update':
+            form.username.data = user.username
+            form.email.data = user.email
+            form.name.data = user.name
+            form.title.data = user.title
+            form.status.data = user.status
+            return render_template('main/update_user.html',title='修改用户',form=form)
+        if request.args.get("func") == 'delete':
+            db.session.delete(user)
+            db.session.commit()
+            flash('删除成功')
+            return redirect(url_for('main.index'))
+
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.email = form.email.data
+        user.name = form.name.data
+        user.title = form.title.data
+        user.status = form.status.data
+        db.session.commit()
+        flash('修改成功')
+        return redirect(url_for('main.index'))
+    return redirect(url_for('main.index'))

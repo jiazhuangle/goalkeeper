@@ -55,6 +55,7 @@ class UserData(db.Model):
     title = db.Column(db.String(64))
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
+    status = db.Column(db.Integer)
 
     def __repr__(self):
         return '<UserData {}>'.format(self.username)
@@ -83,7 +84,7 @@ class UserData(db.Model):
             'email': self.email,
             'name': self.name,
             'title':self.title,
-
+            'status':self.status,
         }
         return data
 

@@ -1,22 +1,25 @@
-    <table class="table table-hover">
-        <tr>
-            <td >
-                {{user.id}}
+      <form action="{{ url_for('main.update_user') }}" method="GET">
+         <tr>
+            <td>
+               {{user.id}}
             </td>
             <td>
                {{user.username}}
             </td>
             <td>
-               {{user.name}}
-            </td>
-            <td>
                {{user.email}}
             </td>
             <td>
-               {{user.title}}
+               {{user.name}}
             </td>
             <td>
                {{user.title}}
             </td>
-        </tr>
-    </table>
+            <td></td>
+            <td>
+               <input type="hidden" name="uid" value='{{user.id}}'>
+               <input type="submit" name="func" value="update">
+               <input type="submit" name="func" value="delete">
+            </td>
+         </tr>
+      </form>

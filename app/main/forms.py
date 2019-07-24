@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import UserData
 
@@ -21,3 +21,13 @@ class AddUserForm(FlaskForm):
         user = UserData.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('邮箱已被占用,请重新输入.')
+
+class UpdateUserForm(FlaskForm):
+    username = StringField('用户名', validators=[DataRequired()])
+
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    name=StringField('姓名', validators=[DataRequired()])
+    password = PasswordField('密码')
+    title = StringField('职位', validators=[DataRequired()])
+    status = IntegerField('状态', validators=[DataRequired()])
+    submit = SubmitField('修改')
