@@ -29,5 +29,5 @@ class UpdateUserForm(FlaskForm):
     name=StringField('姓名', validators=[DataRequired()])
     password = PasswordField('密码')
     title = StringField('职位', validators=[DataRequired()])
-    status = IntegerField('状态', validators=[DataRequired()])
+    status = StringField('状态', validators=[DataRequired()])
     submit = SubmitField('修改')

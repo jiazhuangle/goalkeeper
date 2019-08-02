@@ -20,4 +20,4 @@
 
 
 ## 运行
-    flask run
+    flask run --host=127.0.0.8 --port=8888

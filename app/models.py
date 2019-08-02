@@ -45,7 +45,11 @@ class User(UserMixin,db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
-
+"""
+status:
+1: 正常状态
+0：已删除状态
+"""
 class UserData(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -55,7 +59,7 @@ class UserData(db.Model):
     title = db.Column(db.String(64))
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
-    status = db.Column(db.Integer)
+    status = db.Column(db.String(32))
 
     def __repr__(self):
         return '<UserData {}>'.format(self.username)

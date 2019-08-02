@@ -31,7 +31,7 @@ def add_user():
     form = AddUserForm()
     if form.validate_on_submit():
         user = UserData(username= form.username.data,email= form.email.data,
-                        name = form.name.data,title=form.title.data,status=1)
+                        name = form.name.data,title=form.title.data,status='normal')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -56,7 +56,7 @@ def update_user():
             form.status.data = user.status
             return render_template('main/update_user.html',title='修改用户',form=form)
         if request.args.get("func") == 'delete':
-            db.session.delete(user)
+            user.status = 'deleted'         #逻辑删除：改状态位为0
             db.session.commit()
             flash('删除成功')
             return redirect(url_for('main.index'))
